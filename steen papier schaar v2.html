@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steen, Papier, Schaar</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+        padding: 50px;
+      }
+      h1 {
+        color: #333;
+      }
+      .button-container {
+        margin: 20px 0;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      button:hover {
+        transform: scale(1.1);
+      }
+      button#steen {
+        background-color: #f44336;
+        color: white;
+      }
+      button#papier {
+        background-color: #2196f3;
+        color: white;
+      }
+      button#schaar {
+        background-color: #4caf50;
+        color: white;
+      }
+      #result {
+        font-size: 18px;
+        color: #333;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Steen, Papier, Schaar</h1>
+    <div class="button-container">
+      <button id="steen" onclick="playGame('steen')">Steen</button>
+      <button id="papier" onclick="playGame('papier')">Papier</button>
+      <button id="schaar" onclick="playGame('schaar')">Schaar</button>
+    </div>
+    <p id="result"></p>
+
+    <script>
+      function getComputerChoice() {
+        const choices = ["steen", "papier", "schaar"];
+        const randomIndex = Math.floor(Math.random() * choices.length);
+        return choices[randomIndex];
+      }
+
+      function determineWinner(userChoice, computerChoice) {
+        if (userChoice === computerChoice) {
+          return "Gelijkspel!";
+        } else if (
+          (userChoice === "steen" && computerChoice === "schaar") ||
+          (userChoice === "papier" && computerChoice === "steen") ||
+          (userChoice === "schaar" && computerChoice === "papier")
+        ) {
+          return "Je wint!";
+        } else {
+          return "Je verliest!";
+        }
+      }
+
+      function playGame(userChoice) {
+        const computerChoice = getComputerChoice();
+        const result = determineWinner(userChoice, computerChoice);
+        document.getElementById("result").innerHTML = `
+                Je hebt gekozen: <strong>${userChoice}</strong><br>
+                De computer heeft gekozen: <strong>${computerChoice}</strong><br>
+                <strong>${result}</strong>
+            `;
+      }
+    </script>
+  </body>
+</html>

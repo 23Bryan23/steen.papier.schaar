@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steen, Papier, Schaar</title>
+  </head>
+  <body>
+    <h1>Steen, Papier, Schaar</h1>
+    <button onclick="playGame('steen')">Steen</button>
+    <button onclick="playGame('papier')">Papier</button>
+    <button onclick="playGame('schaar')">Schaar</button>
+    <p id="result"></p>
+
+    <script>
+      function getComputerChoice() {
+        const choices = ["steen", "papier", "schaar"];
+        const randomIndex = Math.floor(Math.random() * choices.length);
+        return choices[randomIndex];
+      }
+
+      function determineWinner(userChoice, computerChoice) {
+        if (userChoice === computerChoice) {
+          return "Gelijkspel!";
+        } else if (
+          (userChoice === "steen" && computerChoice === "schaar") ||
+          (userChoice === "papier" && computerChoice === "steen") ||
+          (userChoice === "schaar" && computerChoice === "papier")
+        ) {
+          return "Je wint!";
+        } else {
+          return "Je verliest!";
+        }
+      }
+
+      function playGame(userChoice) {
+        const computerChoice = getComputerChoice();
+        const result = determineWinner(userChoice, computerChoice);
+        document.getElementById("result").innerHTML = `
+                Je hebt gekozen: ${userChoice}<br>
+                De computer heeft gekozen: ${computerChoice}<br>
+                ${result}
+            `;
+      }
+    </script>
+  </body>
+</html>
